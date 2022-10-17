@@ -1,80 +1,127 @@
-
 <!DOCTYPE html> 
 <html> 
     <head> 
-        <title>Avatar</title>
+        <title>Círculos</title>
+        <style>
+            body {
+                background-color: #fffaff;
+            }
+
+            .principal {
+                width: 100%;
+                height: 110px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #botao {
+                padding: 10px 20px;
+                margin: 10px 10px;
+                border-radius: 10px;
+                border-width: 0px;
+                background-color: rgb(11, 11, 69);
+                color:#fff;
+                cursor: pointer;
+            }
+
+            .segundo {
+                width: 100%;
+                height: auto;
+                padding-top: 150px;
+                float: center;
+            }
+
+            .row {
+                width: 100%;
+                height: 150px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-evenly;
+            }
+
+            .circle {
+                width: 100px !important;
+                height: 100px;
+                border-radius: 50%;
+                margin: 17px;
+                flex-shrink: 0;
+                display: inline-block;
+                border:  #FFFFFF 1px solid;
+            }
+        </style>
     </head>
-    <body>
-        <script type="text/javascript">
+    <body></body>
+    <script type="text/javascript">
+        var idI = 1
+        var link = document.createElement("link");
+        link.href = "reset.css";
+        link.rel = "stylesheet";
+        document.head.appendChild(link);
 
-            var erase = document.createElemente("link");
-            erase.href = "reset.css";
-            erase.rel = "stylesheet";
-            document.head.appendChild(erase);
+        var link = document.createElement("link");
+        link.href = "reset.css";
+        link.rel = "stylesheet";
+        document.head.appendChild(link);
 
-            var erase = document.createElemente("link");
-            erase.href = "reset.css";
-            erase.rel = "stylesheet";
-            document.head.appendChild(erase);
+        const div = document.createElement("div");
+        div.className = "principal";
 
-            const div = document.createElement("div");
-            div.className = "container";
+        const divRow = document.createElement("div");
+        div.className = "row";
 
-            const div_row = document.createElement("div");
-            div.className = "row";
+        var button1 = document.createElement("button");
+        button1.innerText = "Adicionar Círculo";
+        button1.type = 'button';
+        button1.id = "botao";
+        button1.onclick = novoCirculo;
 
-            var c_button = document.createElement("button");
-            c_button.innerText = "Adicionar Círculo";
-            c_button.type = "button";
-            c_button.id = "press";
-            c_button.onclick = novoCirculo;
+        var button = document.createElement("button");
+        button.innerText = "Deletar Círculo";
+        button.type = 'button';
+        button.id = "botao";
+        button.onclick = TirarCirculo;
 
-            var d_button = document.createElement("button");
-            d_button.innerText = "Deletar Círculo";
-            d_button.type = "button";
-            d_button.id = "press";
-            d_button.onclick = TirarCirculo;
+        divRow.appendChild(button1);
+        divRow.appendChild(button);
+        div.appendChild(divRow);
 
-            div_row.appendChild(c_button);
-            div_row.appendChild(d_button);
-            div.appendChild(div_row);
+        const p = document.createElement("div");
+        p.innerHTML="É possível excluir o círculo clicando nele!";
+        div.appendChild(p);
+        document.body.appendChild(div);
 
-            const phrase = document.createElement("p");
-            phrase.innerHTML="É possível excluir o círculo clicando nele!";
-            div.appendChild(phrase);
+        const div2 = document.createElement("div");
+        div2.className ="segundo";
+        document.body.appendChild(div2);
 
-            document.body.appendChild(div);
+        function novoCirculo() {
+            var circulo = document.createElement("div");
+            circulo.className = "circle";
+            circulo.style.backgroundColor = sortColor();
+            circulo.id = `circulo${idI}`;
+            idI = idI + 1;
+            circulo.onclick = function () { elimineCircle(circulo.id);}
+            div2.appendChild(circulo);
+        };
 
-            const div2 = document.createElement("div");
-            div2.className ="segundo";
-            document.body.appendChild(div2);
+        function elimineCircle(id){
+            var c = document.getElementById(`${id}`);
+            div2.removeChild(c);
+        };
 
-            function novoCirculo() {
-                var circulo = document.createElement("div");
-                circulo.className = "circle";
-                circulo.style.backgroundColor = sortColor();
-                circulo.id = `circulo${idI}`;
-                idI = idI + 1;
-                circulo.onclick = function() { deletaCirculo(circulo.id);}
-                div2.appendChild(circulo);
-            };
+        function sortColor() {
+            var cores  = ['#ffe3b3','#ff9a52', '#ff5252','#960018','#c91e5a', '#3d2922', '#00FF00','#4B0082'];
+            return cores[Math.floor(Math.random()*cores.length)];
+        };
 
-            function deletaCirculo(id){
-                var c = document.getElementById(`${id}`);
+        function TirarCirculo(){
+            if (div2.childNodes.length > 0){
+                var c = div2.childNodes[0];
                 div2.removeChild(c);
             };
-
-            function sortColor() {
-                var cores  = ['#ffe3b3','#ff9a52', '#ff5252','#c91e5a'];
-                return cores[Math.floor(Math.random()*cores.length)];
-            };
-
-            function TirarCirculo(){
-                if (div2.childNodes.length > 0){
-                    var c = div2.childNodes[0];
-                    div2.removeChild(c);
-                };
-            };        
-        </script>
-    </body> 
+        };        
+    </script>
 </html>
